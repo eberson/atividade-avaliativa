@@ -13,7 +13,9 @@ class Tarefa {
   Tarefa({
     required this.title,
     required this.description,
-  }) : id = _uuid.v4(), criadoEm = DateTime.now(), status = "TODO";
+  })  : id = _uuid.v4(),
+        criadoEm = DateTime.now(),
+        status = "TODO";
 
   Tarefa.historico({
     required this.title,
@@ -31,21 +33,23 @@ class Tarefa {
     required this.status,
   });
 
-  Tarefa doing() => Tarefa._(
+  Tarefa move(String status) => Tarefa._(
         id: id,
         title: title,
         description: description,
         criadoEm: criadoEm,
         concluidoEm: concluidoEm,
-        status: "DOING",
+        status: status,
       );
 
-  Tarefa done() => Tarefa._(
-        id: id,
-        title: title,
-        description: description,
-        criadoEm: criadoEm,
-        concluidoEm: DateTime.now(),
-        status: "DONE",
-      );
+  String get nextStatus {
+    switch (status) {
+      case "TODO":
+        return "DOING";
+      case "DOING":
+        return "DONE";
+      default:
+        return "UNKNOWN";
+    }
+  }
 }

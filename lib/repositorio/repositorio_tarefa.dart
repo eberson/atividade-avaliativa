@@ -5,11 +5,20 @@ class RepositorioTarefa {
     _tarefasDB.add(tarefa);
   }
 
+  void update(String id, Tarefa tarefa) {
+    var index = _tarefasDB.indexWhere((t) => t.id == id);
+
+    if (index > -1) {
+      _tarefasDB[index] = tarefa;
+    }
+  }
+
   List<Tarefa> select() {
     return List.from(_tarefasDB);
   }
 
-  Tarefa? selectById(String id) => _tarefasDB.where((t) => t.id == id).firstOrNull;
+  Tarefa? selectById(String id) =>
+      _tarefasDB.where((t) => t.id == id).firstOrNull;
 }
 
 final _tarefasDB = <Tarefa>[
@@ -29,8 +38,7 @@ final _tarefasDB = <Tarefa>[
   ),
   Tarefa.historico(
     title: "Feriado",
-    description:
-        "Realizar atividades pendentes para organizar o calendário",
+    description: "Realizar atividades pendentes para organizar o calendário",
     criadoEm: DateTime.now().subtract(const Duration(days: 3)),
     status: "TODO",
   ),

@@ -1,4 +1,8 @@
+import 'package:atividade/pages/detalhe_tarefa_page.dart';
+import 'package:atividade/pages/esqueci_senha_page.dart';
 import 'package:atividade/pages/home_page.dart';
+import 'package:atividade/pages/login_page.dart';
+import 'package:atividade/pages/nova_tarefa_page.dart';
 import 'package:atividade/util/tema.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +16,11 @@ class Aplicacao extends StatelessWidget {
       theme: tema(),
       initialRoute: "/",
       routes: {
-        "/": (_) => const HomePage(),
+        "/": (_) => const LoginPage(),
+        "/home": (_) => const HomePage(),
+        "/nova": (_) => const NovaTarefaPage(),
+        "/detalhe": (_) => const DetaheTarefaPage(),
+        "/esqueci": (_) => const EsqueciSenhaPage(),
       },
       debugShowCheckedModeBanner: false,
     );

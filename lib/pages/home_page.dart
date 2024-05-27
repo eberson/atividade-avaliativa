@@ -1,5 +1,6 @@
 import 'package:atividade/components/tarefa_list_item.dart';
-import 'package:atividade/vm/lista_tarefa.dart';
+import 'package:atividade/vm/gestor_tarefa.dart';
+import 'package:atividade/vm/login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,21 +9,63 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final vm = Provider.of<ListaTarefa>(context);
-    final tarefas = vm.select();
+    final gestorTarefa = Provider.of<GestorTarefa>(context);
+    final login = Provider.of<Login>(context);
+
+    final tarefas = gestorTarefa.select();
+
+    final tema = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: tema.colorScheme.inversePrimary,
+        actions: [
+          IconButton(
+            onPressed: () {
+              login.logout();
+            },
+            icon: const Icon(Icons.logout),
+          ),
+        ],
       ),
-      body: ListView.separated(
-        itemBuilder: (context, index) => TarefaListItem(tarefa: tarefas[index]),
-        separatorBuilder: (context, index) => const Divider(),
-        itemCount: tarefas.length,
+      body: Column(
+        children: [
+          Container(
+            width: double.maxFinite,
+            color: tema.colorScheme.tertiary,
+            padding: const EdgeInsets.all(8),
+            margin: const EdgeInsets.only(
+              bottom: 20,
+              top: 8,
+              left: 8,
+              right: 8,
+            ),
+            child: Text(
+              "Seja bem vindo, ${login.usuarioLogado?.nome ?? "Anônimo"}!",
+              style: tema.textTheme.bodyLarge?.copyWith(
+                color: tema.colorScheme.onTertiary,
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView.separated(
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  "/detalhe",
+                  arguments: tarefas[index].id,
+                ),
+                child: TarefaListItem(tarefa: tarefas[index]),
+              ),
+              separatorBuilder: (context, index) => const Divider(),
+              itemCount: tarefas.length,
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: () => Navigator.pushNamed(context, "/nova"),
         child: const Icon(Icons.add),
       ),
     );

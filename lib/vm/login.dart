@@ -14,6 +14,7 @@ class Login extends ChangeNotifier {
       );
 
       notifyListeners();
+      return;
     }
 
     throw Exception("Credenciais inválidas!");

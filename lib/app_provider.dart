@@ -1,7 +1,7 @@
 import 'package:atividade/app.dart';
-import 'package:atividade/vm/criar_tarefa.dart';
-import 'package:atividade/vm/lista_tarefa.dart';
+import 'package:atividade/vm/gestor_tarefa.dart';
 import 'package:atividade/vm/login.dart';
+import 'package:atividade/vm/senha.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,8 +13,8 @@ class AppProvider extends StatelessWidget {
     return MultiProvider(
       providers: [
         Login.criar(),
-        ListaTarefa.criar(),
-        CriarTarefa.criar(),
+        Senha.criar(),
+        GestorTarefa.criar(),
       ],
       child: const Aplicacao(),
     );
