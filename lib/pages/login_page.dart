@@ -65,7 +65,7 @@ class LoginPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, "/esqueci"),
+                    onTap: () => Navigator.pushNamed(context, "/home"),
                     child: Text(
                       "Esqueci minha senha",
                       style: linkStyle,
